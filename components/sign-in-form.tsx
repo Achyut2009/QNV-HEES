@@ -8,7 +8,7 @@ import { Text } from '@/components/ui/text';
 import { useSignIn } from '@clerk/clerk-expo';
 import { Link, router } from 'expo-router';
 import * as React from 'react';
-import { type TextInput, View } from 'react-native';
+import { Image, type TextInput, View } from 'react-native';
 
 export function SignInForm() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -58,8 +58,14 @@ export function SignInForm() {
   return (
     <View className="gap-6">
       <Card className="border-border/0 shadow-none sm:border-border sm:shadow-sm sm:shadow-black/5">
+        <View className="items-center px-6 pt-6">
+          <Image
+            source={require('@/assets/images/favicon.png')}
+            className="h-24 w-24 rounded"
+          />
+        </View>
         <CardHeader>
-          <CardTitle className="text-center text-xl sm:text-left">Sign in to myway</CardTitle>
+          <CardTitle className="text-center text-xl sm:text-left">Sign in to QNV-HEES</CardTitle>
           <CardDescription className="text-center sm:text-left">
             Welcome back! Please sign in to continue
           </CardDescription>

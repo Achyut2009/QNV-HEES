@@ -13,18 +13,47 @@ import { TextInput, View } from 'react-native';
 export function SignUpForm() {
   const { signUp, isLoaded } = useSignUp();
   const [email, setEmail] = React.useState('');
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const firstNameInputRef = React.useRef<TextInput>(null);
+  const lastNameInputRef = React.useRef<TextInput>(null);
   const passwordInputRef = React.useRef<TextInput>(null);
-  const [error, setError] = React.useState<{ email?: string; password?: string }>({});
+  const [error, setError] = React.useState<{
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+  }>({});
 
   async function onSubmit() {
     if (!isLoaded) return;
 
-    // Start sign-up process using email and password provided
+    // Simple front-end validation for required fields
+    if (!firstName.trim()) {
+      setError({ firstName: 'First name is required' });
+      return;
+    }
+    if (!lastName.trim()) {
+      setError({ lastName: 'Last name is required' });
+      return;
+    }
+    if (!email.trim()) {
+      setError({ email: 'Email is required' });
+      return;
+    }
+    if (!password) {
+      setError({ password: 'Password is required' });
+      return;
+    }
+
+    // Start sign-up process using email, password and names provided
     try {
       await signUp.create({
         emailAddress: email,
         password,
+        firstName,
+        lastName,
       });
 
       // Send user an email with verification code
@@ -60,6 +89,44 @@ export function SignUpForm() {
         <CardContent className="gap-6">
           <View className="gap-6">
             <View className="gap-1.5">
+              <Label htmlFor="firstName">First name</Label>
+              <Input
+                ref={firstNameInputRef}
+                id="firstName"
+                placeholder="John"
+                autoCapitalize="words"
+                onChangeText={(t) => {
+                  setFirstName(t);
+                  if (error.firstName) setError((prev) => ({ ...prev, firstName: undefined }));
+                }}
+                returnKeyType="next"
+                onSubmitEditing={() => lastNameInputRef.current?.focus()}
+              />
+              {error.firstName ? (
+                <Text className="text-sm font-medium text-destructive">{error.firstName}</Text>
+              ) : null}
+            </View>
+            <View className="gap-1.5">
+              <Label htmlFor="lastName">Last name</Label>
+              <Input
+                ref={lastNameInputRef}
+                id="lastName"
+                placeholder="Doe"
+                autoCapitalize="words"
+                onChangeText={(t) => {
+                  setLastName(t);
+                  if (error.lastName) setError((prev) => ({ ...prev, lastName: undefined }));
+                }}
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  // focus email next (email input uses submitBehavior to move focus)
+                }}
+              />
+              {error.lastName ? (
+                <Text className="text-sm font-medium text-destructive">{error.lastName}</Text>
+              ) : null}
+            </View>
+            <View className="gap-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -67,7 +134,10 @@ export function SignUpForm() {
                 keyboardType="email-address"
                 autoComplete="email"
                 autoCapitalize="none"
-                onChangeText={setEmail}
+                onChangeText={(t) => {
+                  setEmail(t);
+                  if (error.email) setError((prev) => ({ ...prev, email: undefined }));
+                }}
                 onSubmitEditing={onEmailSubmitEditing}
                 returnKeyType="next"
                 submitBehavior="submit"

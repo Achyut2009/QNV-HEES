@@ -1,8 +1,26 @@
 import { SignInForm } from '@/components/sign-in-form';
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
+import { useAuth } from '@clerk/clerk-expo';
+import { router } from 'expo-router';
 
 export default function SignInScreen() {
+  const { isSignedIn, isLoaded } = useAuth();
+
+  React.useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      // If already signed in, send them to the app root (do not show sign-in)
+      router.replace('/');
+    }
+  }, [isLoaded, isSignedIn]);
+
+  if (!isLoaded) return null;
+
+  if (isSignedIn) {
+    // While the redirect is happening, render nothing.
+    return null;
+  }
+
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
