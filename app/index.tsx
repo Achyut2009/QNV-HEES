@@ -126,7 +126,7 @@ export default function Screen() {
                 </Text>
                 <View className="flex-row items-center gap-2">
                   <View className="w-2 h-2 bg-green-500 rounded-full" />
-                  <Text className="text-sm text-muted-foreground">15 projects • 89% compliant</Text>
+                  <Text className="text-sm text-muted-foreground">15 projects • with 89% compliant</Text>
                 </View>
               </View>
               <Icon as={TrendingUp} size={20} className="text-green-600 ml-auto" />
