@@ -26,7 +26,7 @@ export default function EconomicalScreen() {
             </Text>
           </View>
           <Text className="text-center text-lg text-muted-foreground max-w-md">
-            Building a competitive, diversified economy for sustainable prosperity.
+            Building a competitive, diversified economy for sustainable prosperities.
           </Text>
         </View>
 
