@@ -56,7 +56,7 @@ export default function EconomicalScreen() {
 
         {/* Strategic Pillars */}
         <View className="mb-8">
-          <Text className="text-xl font-semibold mb-6">Core Strategy</Text>
+          <Text className="text-xl font-semibold mb-6">Core Strategy!</Text>
           <View className="gap-4">
             <Pressable className="flex-row items-center p-4 rounded-2xl bg-card/80 border border-border">
               <Icon as={BarChart3} size={24} className="text-emerald-600 mr-4" />
