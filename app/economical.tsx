@@ -22,11 +22,11 @@ export default function EconomicalScreen() {
           <View className="flex-row items-center gap-2 mb-4">
             <Icon as={DollarSign} size={28} className="text-emerald-600" />
             <Text className="text-3xl font-semibold text-foreground tracking-tight">
-              Economic Pillars!
+              Economic Pillars
             </Text>
           </View>
           <Text className="text-center text-lg text-muted-foreground max-w-md">
-            Building a competitive, diversified economy for sustainable prosperity.
+            Building a competitive, diversified economy for sustainable prosperities.
           </Text>
         </View>
 
